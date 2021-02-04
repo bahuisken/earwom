@@ -1,16 +1,14 @@
 <!DOCTYPE html>
-
 <html>
-
-<head>
+  <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hello Bulma!</title>
+    <title>Earworm</title>
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
-
-</head>
-
-<body>
+    <link rel="icon" href="assets/images/Worm.png" type="image/x-icon">
+  </head>
+  <body>
     <header>
         <h1 class="title">Earworm</h1>
     </header>
@@ -20,19 +18,21 @@
                 <label for="search">Search</label>
                 <input type="text" id="query">
                 <button type="button">Submit</button>
-                <input type="checkbox" id="lyrics" name="lyrics" unchecked>
+                <input type="radio" id="lyrics" name="input" unchecked>
                 <label for="lyrics">Lyrics</label>
-                <input type="checkbox" id="song" name="song" unchecked>
+                <input type="radio" id="song" name="input" unchecked>
                 <label for="song">Song</label>
-                <input type="checkbox" id="album" name="album" unchecked>
+                <input type="radio" id="album" name="input" unchecked>
                 <label for="album">Album</label>
-                <input type="checkbox" id="artist" name="artist" unchecked>
+                <input type="radio" class="radio" id="artist" name="input" unchecked>
                 <label for="artist">Artist</label>
             </form>
         </div>
+        <div class="columns">
+            <div class="column" id="results"></div>
+            <div class="column" id="bio"></div>
+        </div>
     </main>
-</body>
-
-<script src="script.js"></script>
-
+  </body>
 </html>
+
