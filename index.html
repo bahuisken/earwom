@@ -11,14 +11,24 @@
 <body>
     <section class="section">
         <div class="container">
-            <h1 class="title">
-                Hello World
-            </h1>
-            <p class="subtitle">
-                My first website with <strong>Bulma</strong>!
-            </p>
+
+            <form>
+                <label for="search">Search</label>
+                <input type="text" id="query">
+                <button type="button" id="submitQueryBtn">Submit</button>
+                <input type="checkbox" id="lyrics" name="lyrics" unchecked>
+                <label for="lyrics">Lyrics</label>
+                <input type="checkbox" id="song" name="song" unchecked>
+                <label for="song">Song</label>
+                <input type="checkbox" id="album" name="album" unchecked>
+                <label for="album">Album</label>
+                <input type="checkbox" id="artist" name="artist" unchecked>
+                <label for="artist">Artist</label>
+            </form>
         </div>
     </section>
 </body>
+
+<script src="script.js"></script>
 
 </html>
