@@ -1,14 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hello Bulma!</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+
 </head>
 
 <body>
-
+    <header>
+        <h1 class="title">Earworm</h1>
+    </header>
+    <main class="section">
+        <div class="container">
+            <form>
+                <label for="search">Search</label>
+                <input type="text" id="query">
+                <button type="button">Submit</button>
+                <input type="checkbox" id="lyrics" name="lyrics" unchecked>
+                <label for="lyrics">Lyrics</label>
+                <input type="checkbox" id="song" name="song" unchecked>
+                <label for="song">Song</label>
+                <input type="checkbox" id="album" name="album" unchecked>
+                <label for="album">Album</label>
+                <input type="checkbox" id="artist" name="artist" unchecked>
+                <label for="artist">Artist</label>
+            </form>
+        </div>
+    </main>
 </body>
 
 </html>
