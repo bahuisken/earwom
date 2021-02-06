@@ -71,3 +71,11 @@ function figureWhatTypeQuery() {
 function generateResults(data) {
 
 }
+var close = $(".modal-close");
+var modal = $(".modal");
+close.click(function closeModals() {
+
+    modal.removeClass("is-active");
+})
+
+
