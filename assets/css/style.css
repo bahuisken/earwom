@@ -16,3 +16,7 @@ body {
     color:  #e6e600;
     text-align: center;
 }
+
+.column {
+    border: 5px solid black;
+}
