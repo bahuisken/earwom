@@ -4,7 +4,7 @@
 
 //console.log(document.getElementById("submitQueryBtn"))
 
-document.getElementById("submitQueryBtn").addEventListener("click", function () {
+document.getElementById("submit-query-btn").addEventListener("click", function () {
     var searchBarValue = document.querySelector("#query").value.split(" ").join("%20");
     console.log("https://api.genius.com/search?q=" + searchBarValue + "&access_token=fbzexr2DEleMzVPAdhBCCTEWXTXpMvS1pn8AmhXYmnTg0KwJxnSheU_fl3pDgUJJ")
     fetch("https://api.genius.com/search?q=" + searchBarValue + "&access_token=fbzexr2DEleMzVPAdhBCCTEWXTXpMvS1pn8AmhXYmnTg0KwJxnSheU_fl3pDgUJJ"
@@ -20,3 +20,5 @@ document.getElementById("submitQueryBtn").addEventListener("click", function () 
 function generateResults(data) {
 
 }
+
+console.log('connected');
