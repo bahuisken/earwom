@@ -1,36 +1,5 @@
 <!DOCTYPE html>
 <html>
-<<<<<<< HEAD
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hello Bulma!</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
-  </head>
-  <body>
-    <header>
-        <h1 class="title">Earworm</h1>
-    </header>
-    <main class="section">
-        <div class="container">
-            <form>
-                <label for="search">Search</label>
-                <input type="text" id="query">
-                <button type="button">Submit</button>
-                <input type="checkbox" id="lyrics" name="lyrics" unchecked>
-                <label for="lyrics">Lyrics</label>
-                <input type="checkbox" id="song" name="song" unchecked>
-                <label for="song">Song</label>
-                <input type="checkbox" id="album" name="album" unchecked>
-                <label for="album">Album</label>
-                <input type="checkbox" id="artist" name="artist" unchecked>
-                <label for="artist">Artist</label>
-            </form>
-        </div>
-    </main>
-  </body>
-</html>
-=======
 
 <head>
   <meta charset="utf-8">
@@ -43,24 +12,49 @@
 </head>
 
 <body>
-  <header>
-    <h1 class="title">Earworm</h1>
-  </header>
+
   <main class="section">
-    <div class="container">
-      <form>
-        <label for="search">Search</label>
-        <input type="text" id="query">
-        <button type="button" id="submit-query-btn">Submit</button>
-        <input type="radio" id="lyrics" name="input" unchecked>
-        <label for="lyrics">Lyrics</label>
-        <input type="radio" id="song" name="input" unchecked>
-        <label for="song">Song</label>
-        <input type="radio" id="album" name="input" unchecked>
-        <label for="album">Album</label>
-        <input type="radio" class="radio" id="artist" name="input" unchecked>
-        <label for="artist">Artist</label>
-      </form>
+    <header>
+      <h1 class="title">Earworm</h1>
+    </header>
+    <div class="modal is-active">
+      <div class="modal-background"></div>
+      <div class="modal-content">
+        <div class="box search-box">
+          <form>
+            <div class="field">
+              <label class="label">What's got your ear?</label>
+              <div class="control">
+                <input class="input" type="text">
+              </div>
+            </div>
+            <div class="field">
+              <div class="control">
+                <label class="radio">
+                  <input type="radio" name="search-type" id="lyrics">
+                  Lyrics
+                </label>
+                <label class="radio">
+                  <input type="radio" name="search-type" id="Song">
+                  Song
+                </label>
+                <label class="radio">
+                  <input type="radio" name="search-type" id="Album">
+                  Album
+                </label>
+                <label class="radio">
+                  <input type="radio" name="search-type" id="Artists">
+                  Artists
+                </label>
+              </div>
+            </div>
+            <div class="control">
+              <button class="button is-custom" id="submit-query-btn">DIG</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <button class="modal-close is-large" aria-label="close"></button>
     </div>
     <div class="columns">
       <div class="column" id="results"></div>
@@ -71,4 +65,3 @@
 </body>
 
 </html>
->>>>>>> ea2bdaf78e6e088198ae349651391d77cc9136b8
