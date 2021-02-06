@@ -73,9 +73,13 @@ function generateResults(data) {
 }
 var close = $(".modal-close");
 var modal = $(".modal");
-close.click(function closeModals() {
+close.click(function closeModal() {
 
     modal.removeClass("is-active");
 })
 
 
+var active =$("#active");
+active.click(function openModal() {
+    modal.addClass("is-active");
+})
