@@ -1,7 +1,17 @@
 body {
-    background-color: #E6E6FA;
+    background-color: #4d2600;
   }
 
+  h1 {
+    text-shadow: 2px 2px #4d2600;
+  }
+
+  #logo-holder{
+    background: url('../images/earworm_logo.png') 0 0 repeat-x;
+    width: 150px;
+    height: 85px;
+    margin:auto;
+}
 .search-box{
     background-color:  #e6e600;
 }
