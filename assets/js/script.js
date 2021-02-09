@@ -10,8 +10,9 @@
 
 
 document.getElementById("submit-query-btn").addEventListener("click", function () {
-
-    var searchBarValue = document.querySelector("#query").value.split(" ").join("%20");
+    event.preventDefault();
+    var searchBarValue = document.getElementById("query");
+    console.log(searchBarValue.value);
     // need func here to like check checkboxes and such
     // so I think we go one by one, and once one is true, we do it.
     var queryType = figureWhatTypeQuery()
@@ -71,13 +72,16 @@ function figureWhatTypeQuery() {
 function generateResults(data) {
 
 }
-var close = $(".modal-close");
+var closeM = $(".modal-close");
 var modal = $(".modal");
-close.click(function closeModal() {
+closeM.click(function closeModal() {
 
     modal.removeClass("is-active");
 })
-
+var submitBtn = $("#submit-query-btn");
+submitBtn.click(function closeModal() {
+    modal.removeClass("is-active");
+})
 
 var active =$("#active");
 active.click(function openModal() {
