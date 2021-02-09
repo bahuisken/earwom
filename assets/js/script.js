@@ -2,12 +2,44 @@
 //https://api.genius.com/search?q="WORDS HERE"&access_token=fbzexr2DEleMzVPAdhBCCTEWXTXpMvS1pn8AmhXYmnTg0KwJxnSheU_fl3pDgUJJ
 //looking for response.response.hits[0]?
 
-//console.log(document.getElementById("submitQueryBtn"))
+
+//hopefully when that closes it redirects us back...
 
 
+//stole this -B
+// Get the hash of the url
+const hash = window.location.hash
+    .substring(1)
+    .split('&')
+    .reduce(function (initial, item) {
+        if (item) {
+            var parts = item.split('=');
+            initial[parts[0]] = decodeURIComponent(parts[1]);
+        }
+        return initial;
+    }, {});
+window.location.hash = '';
 
-//
+// Set token
+let _token = hash.access_token;
 
+const authEndpoint = 'https://accounts.spotify.com/authorize';
+
+// Replace with your app's client ID, redirect URI and desired scopes
+const clientId = '484101cfe3334822a8460d3399e625f0';
+const redirectUri = 'https://bahuisken.github.io/project-1/';
+// const scopes = [
+//   'user-top-read'
+// ];
+
+// If there is no token, redirect to Spotify authorization
+if (!_token) {
+    window.location = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token&show_dialog=true`;
+}
+//&scope=${scopes.join('%20')}
+
+
+console.log(_token)
 
 document.getElementById("submit-query-btn").addEventListener("click", function (event) {
     event.preventDefault()
@@ -89,13 +121,13 @@ function generateResults(data) {
 }
 var close = $(".modal-close");
 var modal = $(".modal");
-close.click(function closeModal() {
+close.click(closeModal())
+function closeModal() {
 
     modal.removeClass("is-active");
-})
+}
 
-
-var active =$("#active");
+var active = $("#active");
 active.click(function openModal() {
     modal.addClass("is-active");
 })
