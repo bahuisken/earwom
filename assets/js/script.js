@@ -41,10 +41,11 @@ const redirectUri = 'https://bahuisken.github.io/project-1/';
 //&scope=${scopes.join('%20')}
 
 document.getElementById("authBtn").addEventListener("click", function (event) {
+    event.preventDefault();
     if (!_token) {
         window.location = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token&show_dialog=true`;
     } else {
-        alert("Already have auth token")
+        alert("Already have auth token");
     }
 })
 
@@ -61,9 +62,9 @@ document.getElementById("submit-query-btn").addEventListener("click", function (
 
     // need func here to like check checkboxes and such
     // so I think we go one by one, and once one is true, we do it.
-    var queryType = figureWhatTypeQuery()
+    var queryType = figureWhatTypeQuery();
     // var queryType = "album"
-    console.log(queryType)
+    console.log(queryType);
     var bestSongResponse;
     var bestArtistResponse;
     var bestAlbumResponse;
