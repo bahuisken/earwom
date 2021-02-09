@@ -33,9 +33,9 @@ const redirectUri = 'https://bahuisken.github.io/project-1/';
 // ];
 
 // If there is no token, redirect to Spotify authorization
-if (!_token) {
-    window.location = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token&show_dialog=true`;
-}
+// if (!_token) {
+//     window.location = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token&show_dialog=true`;
+// }
 //&scope=${scopes.join('%20')}
 
 document.getElementById("authBtn").addEventListener("click", function (event) {
