@@ -49,7 +49,8 @@ document.getElementById("authBtn").addEventListener("click", function (event) {
 console.log(_token)
 
 document.getElementById("submit-query-btn").addEventListener("click", function (event) {
-    event.preventDefault()
+    event.preventDefault();
+    modal.removeClass("is-active");
     // var searchBarValue = document.querySelector("#query").value.split(" ").join("%20");
     var searchBarValue = "rap%20god"
     // need func here to like check checkboxes and such
@@ -126,13 +127,13 @@ function figureWhatTypeQuery() {
 function generateResults(data) {
 
 }
-var close = $(".modal-close");
+var closeM = $(".modal-close");
 var modal = $(".modal");
-close.click(closeModal())
-function closeModal() {
+closeM.click(function closeModal() {
 
     modal.removeClass("is-active");
-}
+})
+
 
 var active = $("#active");
 active.click(function openModal() {
