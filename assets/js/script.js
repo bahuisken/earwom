@@ -38,6 +38,13 @@ if (!_token) {
 }
 //&scope=${scopes.join('%20')}
 
+document.getElementById("authBtn").addEventListener("click", function (event) {
+    if (!_token) {
+        window.location = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token&show_dialog=true`;
+    } else {
+        alert("Already have auth token")
+    }
+})
 
 console.log(_token)
 
