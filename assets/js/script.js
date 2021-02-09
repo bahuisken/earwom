@@ -142,8 +142,8 @@ document.getElementById("submit-query-btn").addEventListener("click", function (
 
 function getAllArtistNamesFromSpotifyAPI(artistsArray) {
     artists = {
-        aristNames =[],
-        artistIds =[]
+        aristNames: [],
+        artistIds: []
     }
     artistsArray.forEach(element => {
         artists.artistNames.push(element.name)
