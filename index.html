@@ -19,6 +19,7 @@
       <h1 class="title">Earworm</h1>
 
     </header>
+
     <div class="modal is-active" id="modalOne">
       <div class="modal-background"></div>
       <div class="modal-content">
@@ -27,7 +28,7 @@
             <div class="field">
               <label class="label">What's got your ear?</label>
               <div class="control">
-                <input class="input" type="text">
+                <input class="input" type="text" id="query">
               </div>
             </div>
             <div class="field">
@@ -53,6 +54,9 @@
             <div class="control">
               <button class="button is-custom" id="submit-query-btn">DIG</button>
             </div>
+            <div class="control">
+              <button class="button is-custom" id="authBtn">authenticate</button>
+            </div>
           </form>
         </div>
       </div>
@@ -65,13 +69,13 @@
           <p class="title">Lyrics</p>
           <p class="subtitle">Top tile</p>
         </article>
-        <article class="tile is-child notification is-warning">
+        <article class="tile is-child notification is-danger">
           <p class="title">Songs</p>
           <p class="subtitle">Bottom tile</p>
         </article>
       </div>
       <div class="tile is-parent is-vertical">
-        <article class="tile is-child notification is-primary">
+        <article class="tile is-child notification is-info">
           <p class="title">Albums</p>
           <p class="subtitle">Top tile</p>
         </article>
