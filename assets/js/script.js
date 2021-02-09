@@ -26,7 +26,7 @@ window.location.hash = '';
 // Set token
 let _token = hash.access_token;
 //invalid
-_token = "BQDRwfT6TRoi6kdSXWmT1SU-WHSXAIZq5bdmpGdbV8yrPRMFJ-bU2FPjs1YMOnKhcigAALHTkJbnyagTzMs"
+// _token = "BQDRwfT6TRoi6kdSXWmT1SU-WHSXAIZq5bdmpGdbV8yrPRMFJ-bU2FPjs1YMOnKhcigAALHTkJbnyagTzMs"
 
 const authEndpoint = 'https://accounts.spotify.com/authorize';
 
