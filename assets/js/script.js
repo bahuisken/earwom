@@ -11,7 +11,7 @@
 
 document.getElementById("submit-query-btn").addEventListener("click", function () {
     event.preventDefault();
-    var searchBarValue = document.getElementById("query");
+    var searchBarValue = document.getElementById("query")..split(" ").join("%20");;
     console.log(searchBarValue.value);
     // need func here to like check checkboxes and such
     // so I think we go one by one, and once one is true, we do it.
