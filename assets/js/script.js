@@ -83,8 +83,8 @@ document.getElementById("submit-query-btn").addEventListener("click", function (
                     artistHeaderImage: best.primary_artist.header_image_url,
                     url: best.url,
                     songHeaderImage: best.header_image_url,
-                    lyricsState = best.lyrics_state,
-                    pageViews = best.stats.pageViews
+                    lyricsState: best.lyrics_state,
+                    pageViews: best.stats.pageViews
                 }
             });
 
