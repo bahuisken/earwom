@@ -62,7 +62,7 @@ window.location.hash = '';
 
 // Set token
 let _token = hash.access_token;
-_token = "BQDtYRTJ8m-CV39ajMaDFS-fNlkmVdy1sWqGOWP9G0wlv7D5546yYHFaxeoM1NM9yhR_oXmnDefvvJ1kSa4";
+//_token = "BQDtYRTJ8m-CV39ajMaDFS-fNlkmVdy1sWqGOWP9G0wlv7D5546yYHFaxeoM1NM9yhR_oXmnDefvvJ1kSa4";
 if (_token) {
     songRadio.style.display = "inline";
     albumRadio.style.display = "inline";
