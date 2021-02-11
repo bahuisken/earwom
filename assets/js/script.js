@@ -8,6 +8,7 @@ var lyricsBox = document.getElementById("lyricsBox")
 var songBox = document.getElementById("songsBox")
 var albumBox = document.getElementById("albumsBox")
 var artistBox = document.getElementById("artistsBox")
+var lyricsImgEl = document.getElementById("lyricsImg");
 
 //stole this -B
 // Get the hash of the url
@@ -52,7 +53,7 @@ document.getElementById("authBtn").addEventListener("click", function (event) {
     }
 })
 
-console.log(_token)
+//console.log(_token)
 
 document.getElementById("submit-query-btn").addEventListener("click", function (event) {
 
@@ -91,7 +92,11 @@ document.getElementById("submit-query-btn").addEventListener("click", function (
                     lyricsState: best.lyrics_state,
                     pageViews: best.stats.pageViews
                 }
-                renderLyrics(bestLyricResponse)
+                console.log(bestLyricResponse);
+                var lyricResponseString = JSON.stringify(bestLyricResponse);
+                localStorage.setItem('lyrics', lyricResponseString);
+                var lyricObject = JSON.parse(localStorage.getItem('lyrics'));
+                renderLyrics(lyricObject)
             });
 
 
@@ -125,7 +130,11 @@ document.getElementById("submit-query-btn").addEventListener("click", function (
                         albumImages: best.album.images
 
                     }
-                    renderSong(bestSongResponse)
+                    copnsole.log(bestSongResponse);
+                    var songResponseString = JSON.stringify(bestSongResponse);
+                    localStorage.setItem('song', songResponseString);
+                    var songObject = JSON.parse(localStorage.getItem('song'));
+                    renderSong(songObject);
                 } else if (queryType === "album") {
                     best = data.albums.items[0]
                     bestAlbumResponse = {
@@ -167,19 +176,24 @@ function getAllArtistNamesFromSpotifyAPI(artistsArray) {
 }
 
 
-function renderLyrics(bestLyricResponse) {
-
-    for (const key in bestLyricResponse) {
-        if (Object.hasOwnProperty.call(bestLyricResponse, key)) {
-            const element = bestLyricResponse[key];
-            var div = document.createElement("div")
-            div.textContent = element
-            lyricsBox.appendChild(div)
-        }
-    }
+function renderLyrics(lyricObject) {
+    var title = document.createElement("h2");
+    var img = document.createElement("img");
+    img.src = lyricObject.songHeaderImage;
+    title.textContent = lyricObject.songTitle;
+    lyricsImgEl.appendChild(title);
+    lyricsImgEl.appendChild(img);
+    //for (const key in lyricObject) {
+        //if (Object.hasOwnProperty.call(bestLyricResponse, key)) {
+            //const element = bestLyricResponse[key];
+            //var div = document.createElement("div")
+            //div.textContent = element
+            //lyricsBox.appendChild(div)
+        //}
+    //}
 }
 
-function renderAlbums(bestLyricResponse) {
+function renderAlbums(songObject) {
 
     for (const key in bestLyricResponse) {
         if (Object.hasOwnProperty.call(bestLyricResponse, key)) {
