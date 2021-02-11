@@ -60,6 +60,11 @@ window.location.hash = '';
 
 // Set token
 let _token = hash.access_token;
+if (_token) {
+    songRadio.style.display = "inline";
+    albumRadio.style.display = "inline";
+    artistRadio.style.display = "inline";
+}
 //SET YOUR TEMP TOKEN HERE FOR LOCAL TESTING!!!
 //CHECK SLACK TO GET SUCH A TOKEN
 // _token = "BQC8fxKLK58DGj-MRCB0b-T8CkBGxsXJgR3G4WACB7ug5bcoQF5sx35Fxv7P8b224L0k-grBTODrS60K46E"
@@ -72,9 +77,6 @@ const redirectUri = 'https://bahuisken.github.io/project-1/';
 
 document.getElementById("authBtn").addEventListener("click", function (event) {
     event.preventDefault();
-    songRadio.style.display = "inline";
-    albumRadio.style.display = "inline";
-    artistRadio.style.display = "inline";
     if (!_token) {
         window.location = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token&show_dialog=true`;
     } else {
