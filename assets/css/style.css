@@ -46,3 +46,7 @@ main{
     margin-bottom: 20px;
 
 }
+
+#song-label, #album-label, #artist-label {
+    display: none;
+}

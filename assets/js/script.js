@@ -38,6 +38,14 @@ var albumImg = document.createElement("img");
 var artistTitle = document.createElement("h2");
 var artistImg = document.createElement("img");
 
+var title = document.createElement("h2");
+var img = document.createElement("img");
+
+var songRadio = document.getElementById("song-label");
+var albumRadio = document.getElementById("album-label");
+var artistRadio = document.getElementById("artist-label");
+
+var spotifyEl = document.getElementById("spotify");
 //stole this -B
 // Get the hash of the url
 const hash = window.location.hash
@@ -54,6 +62,12 @@ window.location.hash = '';
 
 // Set token
 let _token = hash.access_token;
+if (_token) {
+    songRadio.style.display = "inline";
+    albumRadio.style.display = "inline";
+    artistRadio.style.display = "inline";
+    spotifyEl.remove();
+}
 //SET YOUR TEMP TOKEN HERE FOR LOCAL TESTING!!!
 //CHECK SLACK TO GET SUCH A TOKEN
 // _token = "BQC8fxKLK58DGj-MRCB0b-T8CkBGxsXJgR3G4WACB7ug5bcoQF5sx35Fxv7P8b224L0k-grBTODrS60K46E"
@@ -128,6 +142,11 @@ document.getElementById("submit-query-btn").addEventListener("click", function (
     }
 
     if (queryType === "lyrics") {
+        var lyricObject = JSON.parse(localStorage.getItem('lyrics'));
+        if (lyricObject) {
+            img.remove();
+            title.remove();
+        }
         // console.log("https://api.genius.com/search?q=" + searchBarValue + "&access_token=fbzexr2DEleMzVPAdhBCCTEWXTXpMvS1pn8AmhXYmnTg0KwJxnSheU_fl3pDgUJJ")
         fetch("https://api.genius.com/search?q=" + searchBarValue + "&access_token=fbzexr2DEleMzVPAdhBCCTEWXTXpMvS1pn8AmhXYmnTg0KwJxnSheU_fl3pDgUJJ"
         )
