@@ -11,7 +11,12 @@ var artistBox = document.getElementById("artistsBox")
 var lyricsImgEl = document.getElementById("lyricsImg");
 var albumImgEl = document.getElementById("albumImg");
 var somgImgEl = document.getElementById("songImg");
+var songRadio = document.getElementById("song-label");
+var albumRadio = document.getElementById("album-label");
+var artistRadio = document.getElementById("artist-label");
 
+var title = document.createElement("h2");
+var img = document.createElement("img");
 //stole this -B
 // Get the hash of the url
 const hash = window.location.hash
@@ -48,6 +53,7 @@ const redirectUri = 'https://bahuisken.github.io/project-1/';
 
 document.getElementById("authBtn").addEventListener("click", function (event) {
     event.preventDefault();
+    songRadio.style.display = "inline";
     if (!_token) {
         window.location = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token&show_dialog=true`;
     } else {
@@ -77,6 +83,11 @@ document.getElementById("submit-query-btn").addEventListener("click", function (
     var bestLyricResponse;
 
     if (queryType === "lyrics") {
+        var lyricObject = JSON.parse(localStorage.getItem('lyrics'));
+        if (lyricObject) {
+            img.remove();
+            title.remove();
+        }
         // console.log("https://api.genius.com/search?q=" + searchBarValue + "&access_token=fbzexr2DEleMzVPAdhBCCTEWXTXpMvS1pn8AmhXYmnTg0KwJxnSheU_fl3pDgUJJ")
         fetch("https://api.genius.com/search?q=" + searchBarValue + "&access_token=fbzexr2DEleMzVPAdhBCCTEWXTXpMvS1pn8AmhXYmnTg0KwJxnSheU_fl3pDgUJJ"
         )
@@ -185,8 +196,9 @@ function getAllArtistNamesFromSpotifyAPI(artistsArray) {
 
 
 function renderLyrics(lyricObject) {
-    var title = document.createElement("h2");
-    var img = document.createElement("img");
+
+    //var title = document.createElement("h2");
+    //var img = document.createElement("img");
     img.src = lyricObject.songHeaderImage;
     title.textContent = lyricObject.songTitle;
     lyricsImgEl.appendChild(title);
