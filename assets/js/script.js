@@ -44,6 +44,8 @@ var img = document.createElement("img");
 var songRadio = document.getElementById("song-label");
 var albumRadio = document.getElementById("album-label");
 var artistRadio = document.getElementById("artist-label");
+
+var spotifyEl = document.getElementById("spotify");
 //stole this -B
 // Get the hash of the url
 const hash = window.location.hash
@@ -64,6 +66,7 @@ if (_token) {
     songRadio.style.display = "inline";
     albumRadio.style.display = "inline";
     artistRadio.style.display = "inline";
+    spotifyEl.remove();
 }
 //SET YOUR TEMP TOKEN HERE FOR LOCAL TESTING!!!
 //CHECK SLACK TO GET SUCH A TOKEN
