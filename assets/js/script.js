@@ -38,6 +38,12 @@ var albumImg = document.createElement("img");
 var artistTitle = document.createElement("h2");
 var artistImg = document.createElement("img");
 
+var title = document.createElement("h2");
+var img = document.createElement("img");
+
+var songRadio = document.getElementById("song-label");
+var albumRadio = document.getElementById("album-label");
+var artistRadio = document.getElementById("artist-label");
 //stole this -B
 // Get the hash of the url
 const hash = window.location.hash
@@ -66,6 +72,9 @@ const redirectUri = 'https://bahuisken.github.io/project-1/';
 
 document.getElementById("authBtn").addEventListener("click", function (event) {
     event.preventDefault();
+    songRadio.style.display = "inline";
+    albumRadio.style.display = "inline";
+    artistRadio.style.display = "inline";
     if (!_token) {
         window.location = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token&show_dialog=true`;
     } else {
@@ -128,6 +137,11 @@ document.getElementById("submit-query-btn").addEventListener("click", function (
     }
 
     if (queryType === "lyrics") {
+        var lyricObject = JSON.parse(localStorage.getItem('lyrics'));
+        if (lyricObject) {
+            img.remove();
+            title.remove();
+        }
         // console.log("https://api.genius.com/search?q=" + searchBarValue + "&access_token=fbzexr2DEleMzVPAdhBCCTEWXTXpMvS1pn8AmhXYmnTg0KwJxnSheU_fl3pDgUJJ")
         fetch("https://api.genius.com/search?q=" + searchBarValue + "&access_token=fbzexr2DEleMzVPAdhBCCTEWXTXpMvS1pn8AmhXYmnTg0KwJxnSheU_fl3pDgUJJ"
         )
