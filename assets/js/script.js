@@ -4,13 +4,39 @@
 
 
 //hopefully when that closes it redirects us back...
-var lyricsBox = document.getElementById("lyricsBox")
-var songBox = document.getElementById("songsBox")
-var albumBox = document.getElementById("albumsBox")
-var artistBox = document.getElementById("artistsBox")
+// var lyricsBox = document.getElementById("lyricsBox")
+// var songBox = document.getElementById("songsBox")
+// var albumBox = document.getElementById("albumsBox")
+// var artistBox = document.getElementById("artistsBox")
 var lyricsImgEl = document.getElementById("lyricsImg");
-var albumImgEl = document.getElementById("albumImg");
-var somgImgEl = document.getElementById("songImg");
+var lyricsBioEl = document.getElementById("lyricsBio");
+
+var albumImgEl = document.getElementById("albumsImg");
+var albumBioEl = document.getElementById("albumsBio");
+
+var songImgEl = document.getElementById("songsImg");
+var songBioEl = document.getElementById("songsBio");
+
+var artistsImgEl = document.getElementById("artistsImg");
+var artistsBioEl = document.getElementById("artistsBio");
+
+
+var lyricsTitle = document.createElement("h2");
+var lyricsArtist = document.createElement("h2");
+var lyricsAlbum = document.createElement("h2");
+var lyricsImg = document.createElement("img");
+
+var songTitle = document.createElement("h2");
+var songArtist = document.createElement("h2");
+var songAlbum = document.createElement("h2");
+var songImg = document.createElement("img");
+
+var albumTitle = document.createElement("h2");
+var albumArtist = document.createElement("h2");
+var albumImg = document.createElement("img");
+
+var artistTitle = document.createElement("h2");
+var artistImg = document.createElement("img");
 
 //stole this -B
 // Get the hash of the url
@@ -28,23 +54,15 @@ window.location.hash = '';
 
 // Set token
 let _token = hash.access_token;
-//invalid
-// _token = "BQDRwfT6TRoi6kdSXWmT1SU-WHSXAIZq5bdmpGdbV8yrPRMFJ-bU2FPjs1YMOnKhcigAALHTkJbnyagTzMs"
+//SET YOUR TEMP TOKEN HERE FOR LOCAL TESTING!!!
+//CHECK SLACK TO GET SUCH A TOKEN
+// _token = "BQC8fxKLK58DGj-MRCB0b-T8CkBGxsXJgR3G4WACB7ug5bcoQF5sx35Fxv7P8b224L0k-grBTODrS60K46E"
 
 const authEndpoint = 'https://accounts.spotify.com/authorize';
 
 // Replace with your app's client ID, redirect URI and desired scopes
 const clientId = '484101cfe3334822a8460d3399e625f0';
 const redirectUri = 'https://bahuisken.github.io/project-1/';
-// const scopes = [
-//   'user-top-read'
-// ];
-
-// If there is no token, redirect to Spotify authorization
-// if (!_token) {
-//     window.location = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token&show_dialog=true`;
-// }
-//&scope=${scopes.join('%20')}
 
 document.getElementById("authBtn").addEventListener("click", function (event) {
     event.preventDefault();
@@ -56,6 +74,27 @@ document.getElementById("authBtn").addEventListener("click", function (event) {
 })
 
 //console.log(_token)
+
+var recentLyrics = JSON.parse(localStorage.getItem('lyrics'));
+if (recentLyrics) {
+    renderLyrics(recentLyrics)
+}
+var recentSong = JSON.parse(localStorage.getItem('song'));
+if (recentSong) {
+    renderSong(recentSong)
+}
+var recentAlbum = JSON.parse(localStorage.getItem('album'));
+if (recentAlbum) {
+    renderAlbums(recentAlbum)
+}
+var recentArtist = JSON.parse(localStorage.getItem('artist'));
+if (recentArtist) {
+    renderArtist(recentArtist)
+}
+
+
+
+
 
 document.getElementById("submit-query-btn").addEventListener("click", function (event) {
 
@@ -76,6 +115,18 @@ document.getElementById("submit-query-btn").addEventListener("click", function (
     var bestAlbumResponse;
     var bestLyricResponse;
 
+    //clear boxes so we don't show the same thing many times
+    if (queryType === "lyrics") {
+
+    } else if (queryType === "track") {
+
+    } else if (queryType === "album") {
+
+    }
+    else if (queryType === "artist") {
+
+    }
+
     if (queryType === "lyrics") {
         // console.log("https://api.genius.com/search?q=" + searchBarValue + "&access_token=fbzexr2DEleMzVPAdhBCCTEWXTXpMvS1pn8AmhXYmnTg0KwJxnSheU_fl3pDgUJJ")
         fetch("https://api.genius.com/search?q=" + searchBarValue + "&access_token=fbzexr2DEleMzVPAdhBCCTEWXTXpMvS1pn8AmhXYmnTg0KwJxnSheU_fl3pDgUJJ"
@@ -92,19 +143,15 @@ document.getElementById("submit-query-btn").addEventListener("click", function (
                     url: best.url,
                     songHeaderImage: best.header_image_url,
                     lyricsState: best.lyrics_state,
-                    pageViews: best.stats.pageViews
+                    pageViews: best.stats.pageviews
                 }
                 console.log(bestLyricResponse);
                 var lyricResponseString = JSON.stringify(bestLyricResponse);
                 localStorage.setItem('lyrics', lyricResponseString);
-                var lyricObject = JSON.parse(localStorage.getItem('lyrics'));
-                renderLyrics(lyricObject)
+                renderLyrics(bestLyricResponse)
             });
 
-
     } else {
-        //token out of date, will only work for tracks/songs.
-        //Working out a solution.
         fetch(constructSpotifyQuery(searchBarValue, queryType), {
             method: "GET",
             headers: {
@@ -117,9 +164,8 @@ document.getElementById("submit-query-btn").addEventListener("click", function (
             .then(data => {
                 console.log(data)
                 var best;
-                //console.log(data.tracks.items[0])
-                // var best = data.items[0];
                 if (queryType === "track") {
+                    // songBox.innerHTML = ""
                     best = data.tracks.items[0]
                     bestSongResponse = {
                         songName: best.name,
@@ -132,11 +178,10 @@ document.getElementById("submit-query-btn").addEventListener("click", function (
                         albumImages: best.album.images
 
                     }
-                    copnsole.log(bestSongResponse);
+                    console.log(bestSongResponse);
                     var songResponseString = JSON.stringify(bestSongResponse);
                     localStorage.setItem('song', songResponseString);
-                    var songObject = JSON.parse(localStorage.getItem('song'));
-                    renderSong(songObject);
+                    renderSong(bestSongResponse);
                 } else if (queryType === "album") {
                     best = data.albums.items[0]
                     bestAlbumResponse = {
@@ -150,9 +195,9 @@ document.getElementById("submit-query-btn").addEventListener("click", function (
                     }
                     var albumResponseString = JSON.stringify(bestAlbumResponse);
                     localStorage.setItem('album', albumResponseString);
-                    var albumObject = JSON.parse(localStorage.getItem('album'));
-                    renderAlbums(albumObject)
+                    renderAlbums(bestAlbumResponse);
                 } else if (queryType === "artist") {
+                    best = data.artists.items[0]
                     bestArtistResponse = {
                         artistName: best.name,
                         artistGenres: best.genres,
@@ -162,7 +207,8 @@ document.getElementById("submit-query-btn").addEventListener("click", function (
                     }
                     var artistResponseString = JSON.stringify(bestArtistResponse);
                     localStorage.setItem('artist', artistResponseString);
-                    var artistObject = JSON.parse(localStorage.getItem('artist'));
+                    renderArtist(bestArtistResponse);
+
                 }
             }
             )
@@ -173,68 +219,97 @@ document.getElementById("submit-query-btn").addEventListener("click", function (
 function getAllArtistNamesFromSpotifyAPI(artistsArray) {
     console.log(artistsArray)
     artists = {
-        aristNames: [],
+        artistNames: [],
         artistIds: []
     }
     artistsArray.forEach(element => {
-        artists.aristNames.push(element.name)
+        artists.artistNames.push(element.name)
         artists.artistIds.push(element.id)
     });
     return artists
 }
 
-
+//Basic bits are done
 function renderLyrics(lyricObject) {
-    var title = document.createElement("h2");
-    var img = document.createElement("img");
-    img.src = lyricObject.songHeaderImage;
-    title.textContent = lyricObject.songTitle;
-    lyricsImgEl.appendChild(title);
-    lyricsImgEl.appendChild(img);
-    //for (const key in lyricObject) {
-        //if (Object.hasOwnProperty.call(bestLyricResponse, key)) {
-            //const element = bestLyricResponse[key];
-            //var div = document.createElement("div")
-            //div.textContent = element
-            //lyricsBox.appendChild(div)
-        //}
-    //}
+    // songTitle: best.full_title,
+    // primaryArist: best.primary_artist.name,
+    // artistHeaderImage: best.primary_artist.header_image_url,
+    // url: best.url,
+    // songHeaderImage: best.header_image_url,
+    // lyricsState: best.lyrics_state,
+    // pageViews: best.stats.pageViews
+    lyricsTitle.textContent = lyricObject.songTitle;
+    lyricsImgEl.appendChild(lyricsTitle);
+    lyricsArtist.textContent = lyricObject.primaryArist
+    lyricsImgEl.appendChild(lyricsArtist);
+    //don't get artist from genius.
+    // lyricsAlbum.textContent = lyricsObject.
+    lyricsImg.src = lyricObject.songHeaderImage;
+    lyricsImgEl.appendChild(lyricsImg);
+
+
 }
 
 function renderAlbums(albumObject) {
-    var title = document.createElement("h2");
-    var img = document.createElement("img");
-    img.src = albumObject.songHeaderImage;
-    title.textContent = albumObject.songTitle;
-    albumImgEl.appendChild(title);
-    albumImgEl.appendChild(img);
+    // albumName: best.name,
+    // albumType: best.album_type,
+    // releaseDate: best.release_date,
+    // totalTracks: best.total_tracks,
+    // id: best.id,
+    // artists: getAllArtistNamesFromSpotifyAPI(best.artists),
+    // images: best.images
 
-    for (const key in bestLyricResponse) {
-        if (Object.hasOwnProperty.call(bestLyricResponse, key)) {
-            const element = bestLyricResponse[key];
-            var div = document.createElement("div")
-            div.textContent = element
-            albumBox.appendChild(div)
-        }
-    }
+    albumTitle.textContent = albumObject.albumName;
+    albumImgEl.appendChild(albumTitle);
+
+    albumArtist.textContent = albumObject.artists.artistNames[0];
+    albumImgEl.appendChild(albumArtist);
+
+    albumImg.src = albumObject.images[0].url;
+    albumImgEl.appendChild(albumImg);
+
+
+
+
+}
+
+function renderArtist(artistObject) {
+    // artistName: best.name,
+    // artistGenres: best.genres,
+    // artistImages: best.images,
+    // artistType: best.type,
+    // artistFollowers: best.followers.total
+    artistTitle.textContent = artistObject.artistName
+    artistsImgEl.appendChild(artistTitle)
+
+    artistImg.src = artistObject.artistImages[0].url;
+    artistsImgEl.appendChild(artistImg);
+
+
 }
 
 function renderSong(songObject) {
-    var title = document.createElement("h2");
-    var img = document.createElement("img");
-    img.src = songObject.songHeaderImage;
-    title.textContent = songObject.songTitle;
-    songImgEl.appendChild(title);
-    songImgEl.appendChild(img);
+    // songName: best.name,
+    // albumName: best.album.name,
+    // releaseDate: best.album.release_date,
+    // explicit: best.explicit,
+    // duration: best.duration_ms,
+    // id: best.id,
+    // artists: getAllArtistNamesFromSpotifyAPI(best.artists),
+    // albumImages: best.album.images
 
-    for (const key in bestLyricResponse) {
-        if (Object.hasOwnProperty.call(bestLyricResponse, key)) {
-            const element = bestLyricResponse[key];
-            var div = document.createElement("div")
-            div.textContent = element
-            songBox.appendChild(div)
-        }
-    }
+    songTitle.textContent = songObject.songTitle;
+    songImgEl.appendChild(songTitle);
+
+    songAlbum.textContent = songObject.albumName;
+    songImgEl.appendChild(songAlbum);
+
+    songArtist.textContent = songObject.artists.artistNames[0]
+    songImgEl.appendChild(songArtist);
+
+    songImg.src = songObject.albumImages[0].url;
+    songImgEl.appendChild(songImg);
+
 }
 
 
