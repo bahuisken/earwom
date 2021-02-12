@@ -66,17 +66,18 @@
       <button class="modal-close is-large" aria-label="close"></button>
     </div>
     <button class="button is-custom" id="active">DIG AGAIN!</button>
+    <button class="button is-custom" id="clear">Clear all boxes</button>
     <div class="tile">
       <div class="tile is-parent is-vertical">
         <article class="tile is-child notification is-primary" id="lyrics-box">
           <p class="title">Lyrics</p>
-          <div class="columns">
+          <div class="columns" id="lyrics-box">
             <div class="column img" id="lyrics-img"></div>
             <div class="column bio" id="lyrics-bio"></div>
           </div>
         </article>
         <article class="tile is-child notification is-danger" id="songs-box">
-          <p class="title">Songs</p>
+          <p class="title" id="songs-box">Songs</p>
           <div class="columns">
             <div class="column img" id="songs-img"></div>
             <div class="column bio" id="songs-bio"></div>
@@ -85,14 +86,14 @@
       </div>
       <div class="tile is-parent is-vertical">
         <article class="tile is-child notification is-info" id="albums-box">
-          <p class="title">Albums</p>
+          <p class="title" id="albums-box">Albums</p>
           <div class="columns">
             <div class="column img" id="albums-img"></div>
             <div class="column bio" id="albums-bio"></div>
           </div>
         </article>
         <article class="tile is-child notification is-warning" id="artists-box">
-          <p class="title">Artists</p>
+          <p class="title" id="artists-box">Artists</p>
           <div class="columns">
             <div class="column img" id="artists-img"></div>
             <div class="column bio" id="artists-bio"></div>

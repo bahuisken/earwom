@@ -8,15 +8,19 @@
 // var songBox = document.getElementById("songsBox")
 // var albumBox = document.getElementById("albumsBox")
 // var artistBox = document.getElementById("artistsBox")
+var lyricsBoxEl = document.getElementById("lyrics-box");
 var lyricsImgEl = document.getElementById("lyrics-img");
 var lyricsBioEl = document.getElementById("lyrics-bio");
 
+var albumBoxEl = document.getElementById("albums-box");
 var albumImgEl = document.getElementById("albums-img");
 var albumBioEl = document.getElementById("albums-bio");
 
+var songBoxEl = document.getElementById("songs-box");
 var songImgEl = document.getElementById("songs-img");
 var songBioEl = document.getElementById("songs-bio");
 
+var artistBoxEl = document.getElementById("artists-box");
 var artistImgEl = document.getElementById("artists-img");
 var artistBioEl = document.getElementById("artists-bio");
 
@@ -29,23 +33,36 @@ var lyricsImg = document.createElement("img");
 var lyricsBy = document.createElement("h2");
 var lyricsLink = document.createElement("a");
 var lyricsBuy = document.createElement("a");
+var lyricsBtn = document.createElement("button");
+lyricsBtn.classList.add("is-custom");
+lyricsBtn.textContent = "Clear Box";
+
 
 var songTitle = document.createElement("h2");
 var songArtist = document.createElement("h2");
 var songAlbum = document.createElement("h2");
 var songImg = document.createElement("img");
 var songBuy = document.createElement("a");
+var songBtn = document.createElement("button");
+songBtn.classList.add("is-custom");
+songBtn.textContent = "Clear Box";
 
 var albumTitle = document.createElement("h2");
 var albumArtist = document.createElement("h2");
 var albumImg = document.createElement("img");
 var albumBuy = document.createElement("a");
+var albumBtn = document.createElement("button");
+albumBtn.classList.add("is-custom");
+albumBtn.textContent = "Clear Box";
 
 
 var artistTitle = document.createElement("h2");
 var artistImg = document.createElement("img");
 var artistBio = document.createElement("p");
 var artistLink = document.createElement("a");
+var artistBtn = document.createElement("button");
+artistBtn.classList.add("is-custom");
+artistBtn.textContent = "Clear Box";
 
 var title = document.createElement("h2");
 var img = document.createElement("img");
@@ -74,7 +91,7 @@ window.location.hash = '';
 
 // Set token
 let _token = hash.access_token;
-//_token = "BQCzDXBV6x7PMuIFHy3Y2jehrUQ7eDuR66KYQzkcYGCjzdFyW8TKDWroJqbiTPCRvUx731t1ImucC4jx6cA";
+//_token = "BQBKFcfTNbyu06yW20WGDCXg-VFmB3zngBN9rvVj7CFitsVpGYHp051GGhe4NfCbK_ZBpZOYckGHDrpbLeY";
 
 if (_token) {
     songRadio.style.display = "inline";
@@ -296,6 +313,7 @@ function renderLyrics(lyricObject) {
     lyricsBioEl.appendChild(lyricsTitle);
     lyricsBioEl.appendChild(lyricsBy);
     lyricsBioEl.appendChild(lyricsLink);
+    lyricsBoxEl.appendChild(lyricsBtn);
 }
 
 
@@ -317,7 +335,7 @@ function renderAlbums(albumObject) {
 
     albumArtist.textContent = "By: " + albumObject.artists.artistNames[0];
     albumBioEl.appendChild(albumArtist);
-
+    albumBoxEl.appendChild(albumBtn);
 
 }
 
@@ -333,7 +351,7 @@ function renderArtist(artistObject) {
     artistTitle.textContent = artistObject.artistName
     artistTitle.setAttribute("class", "has-text-weight-bold")
     artistBioEl.appendChild(artistTitle)
-
+    artistBoxEl.appendChild(artistBtn);
 
 }
 
@@ -361,6 +379,7 @@ function renderSong(songObject) {
 
     songAlbum.textContent = "From: " + songObject.albumName;
     songBioEl.appendChild(songAlbum);
+    songBoxEl.appendChild(songBtn);
 }
 
 function renderDiscogsLyrics(discogsLyricObject) {
@@ -489,7 +508,6 @@ function discogsData(results) {
 
 //push results to page in some manor. I can just do this simply/briefly.
 //probably need a different one for genius vs spotify
-
 var closeM = $(".modal-close");
 var modal = $(".modal");
 closeM.click(function closeModal() {
@@ -502,3 +520,14 @@ var active = $("#active");
 active.click(function openModal() {
     modal.addClass("is-active");
 })
+
+lyricsBtn.addEventListener("click", function (event) {
+    localStorage.removeItem("lyrics");
+    localStorage.removeItem("discogsLyrics");
+    lyricsBtn.remove();
+    lyricsImg.remove();
+    lyricsBy.remove();
+    lyricsTitle.remove();
+    lyricsLink.remove();
+    lyricsBuy.remove();
+});
