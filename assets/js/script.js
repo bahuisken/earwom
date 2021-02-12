@@ -25,7 +25,10 @@ var lyricsTitle = document.createElement("h2");
 var lyricsArtist = document.createElement("h2");
 var lyricsAlbum = document.createElement("h2");
 var lyricsImg = document.createElement("img");
-var lyricsBio = document.createElement("p");
+var lyricsBioBy = document.createElement("h2");
+var lyricsLink = document.createElement("a");
+var lyricsBuy = document.createElement("a");
+var lyricsBio = document.createElement("p");//is bio example
 
 var songTitle = document.createElement("h2");
 var songArtist = document.createElement("h2");
@@ -69,7 +72,7 @@ window.location.hash = '';
 
 // Set token
 let _token = hash.access_token;
-_token = "BQCOEeQuzekj2QPhYb7TivGC525V0vN6qSYIBgndfQZUF3txpIRyJD_Y_3tcSZb2s7C-DHwS6Bh_ZPkhwKg";
+//_token = "BQCOEeQuzekj2QPhYb7TivGC525V0vN6qSYIBgndfQZUF3txpIRyJD_Y_3tcSZb2s7C-DHwS6Bh_ZPkhwKg";
 
 if (_token) {
     songRadio.style.display = "inline";
@@ -144,6 +147,7 @@ document.getElementById("submit-query-btn").addEventListener("click", function (
     if (queryType === "lyrics") {
         console.log(_token);
         var lyricObject = JSON.parse(localStorage.getItem('lyrics'));
+        console.log(lyricObject);
         if (lyricObject) {
             img.remove();
             title.remove();
@@ -162,14 +166,14 @@ document.getElementById("submit-query-btn").addEventListener("click", function (
                     artistHeaderImage: best.primary_artist.header_image_url,
                     url: best.url,
                     songHeaderImage: best.header_image_url,
-                    lyricsState: best.lyrics_state,
+                    lyricsLink: best.url,
                     pageViews: best.stats.pageviews
                 }
                 console.log(bestLyricResponse);
                 var lyricResponseString = JSON.stringify(bestLyricResponse);
                 localStorage.setItem('lyrics', lyricResponseString);
-                renderLyrics(bestLyricResponse)
-                discogsArtist(bestLyricResponse.primaryArist)
+                renderLyrics(bestLyricResponse);
+                discogsData(bestLyricResponse.primaryArist)
             });
 
     } else {
@@ -203,7 +207,7 @@ document.getElementById("submit-query-btn").addEventListener("click", function (
                     var songResponseString = JSON.stringify(bestSongResponse);
                     localStorage.setItem('song', songResponseString);
                     renderSong(bestSongResponse);
-                    discogsArtist(bestSongResponse.artists.artistNames[0]);
+                    discogsData(bestSongResponse.artists.artistNames[0]);
                 } else if (queryType === "album") {
                     best = data.albums.items[0]
                     bestAlbumResponse = {
@@ -218,7 +222,7 @@ document.getElementById("submit-query-btn").addEventListener("click", function (
                     var albumResponseString = JSON.stringify(bestAlbumResponse);
                     localStorage.setItem('album', albumResponseString);
                     renderAlbums(bestAlbumResponse);
-                    discogsArtist(bestAlbumResponse.artists.artistNames[0]);
+                    discogsData(bestAlbumResponse.artists.artistNames[0]);
                 } else if (queryType === "artist") {
                     best = data.artists.items[0]
                     bestArtistResponse = {
@@ -270,7 +274,8 @@ function renderLyrics(lyricObject) {
     // lyricsAlbum.textContent = lyricsObject.
     lyricsImg.src = lyricObject.songHeaderImage;
     lyricsImgEl.appendChild(lyricsImg);
-
+    lyricsBioBy.textContent = "By: " + lyricObject.primaryArist;
+    lyricsBioEl.appendChild(lyricsBioBy)
 
 }
 
@@ -360,6 +365,34 @@ function figureWhatTypeQuery() {
 function discogsData(artist) {
     var queryType = figureWhatTypeQuery();
     if (queryType === "lyrics") {
+        fetch("https://api.discogs.com/database/search?q=" + artist + "&token=FFvTYocHFIohHeiKPxwTEgMcpiVjPZUwnsPfvEtE")
+        .then(response => response.json())
+        .then(data => {
+            var artistResult = data.results;
+            for (let index = 0; index < artistResult.length; index++) {
+                const element = artistResult[index];
+                if (element.type === "artist") {
+                    var realResult = element;
+                    break;
+                }
+            }
+            console.log(realResult);
+            return fetch(`https://api.discogs.com/artists/${realResult.id}`);
+        })
+        .then(response => response.json())
+        .then(data => {
+            bioData = data.profile;
+            bioLink = data.uri;
+            var artistBioStuff = {
+                data: bioData,
+                link: bioLink
+            }
+            var artistBioString = JSON.stringify(artistBioStuff);
+            localStorage.setItem('artistBio', artistBioString);
+            lyricsBio.textContent = artistBioStuff.data;
+            lyricsBioEl.appendChild(lyricsBio);
+            console.log(data);
+        });
 
     } else if (queryType === "track") {
 
@@ -367,8 +400,7 @@ function discogsData(artist) {
 
     }
     else if (queryType === "artist") {
-        fetch("https://api.discogs.com/database/search?q=" + artist + "&token=FFvTYocHFIohHeiKPxwTEgMcpiVjPZUwnsPfvEtE"
-    )
+        fetch("https://api.discogs.com/database/search?q=" + artist + "&token=FFvTYocHFIohHeiKPxwTEgMcpiVjPZUwnsPfvEtE")
         .then(response => response.json())
         .then(data => {
             var artistResult = data.results;
