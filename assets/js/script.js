@@ -36,10 +36,11 @@ var songBio = document.createElement("p");
 var albumTitle = document.createElement("h2");
 var albumArtist = document.createElement("h2");
 var albumImg = document.createElement("img");
-var artistBio = document.createElement("p");
+
 
 var artistTitle = document.createElement("h2");
 var artistImg = document.createElement("img");
+var artistBio = document.createElement("p");
 
 var title = document.createElement("h2");
 var img = document.createElement("img");
@@ -68,7 +69,7 @@ window.location.hash = '';
 
 // Set token
 let _token = hash.access_token;
-//_token = "BQDE39txuxmBcttjiOyeX4-2Gcz_jJHniNIZYvms3i7w_cFi1emxUubve6GXcxE0TzjBLta6LaWJOdaoqJE";
+_token = "BQCOEeQuzekj2QPhYb7TivGC525V0vN6qSYIBgndfQZUF3txpIRyJD_Y_3tcSZb2s7C-DHwS6Bh_ZPkhwKg";
 
 if (_token) {
     songRadio.style.display = "inline";
@@ -230,7 +231,7 @@ document.getElementById("submit-query-btn").addEventListener("click", function (
                     var artistResponseString = JSON.stringify(bestArtistResponse);
                     localStorage.setItem('artist', artistResponseString);
                     renderArtist(bestArtistResponse);
-                    discogsArtist(bestArtistResponse.artistName);
+                    discogsData(bestArtistResponse.artistName);
 
                 }
             }
@@ -303,10 +304,10 @@ function renderArtist(artistObject) {
     // artistType: best.type,
     // artistFollowers: best.followers.total
     artistTitle.textContent = artistObject.artistName
-    artistsImgEl.appendChild(artistTitle)
+    artistImgEl.appendChild(artistTitle)
 
     artistImg.src = artistObject.artistImages[0].url;
-    artistsImgEl.appendChild(artistImg);
+    artistImgEl.appendChild(artistImg);
 
 
 }
@@ -385,13 +386,13 @@ function discogsData(artist) {
         .then(data => {
             bioData = data.profile;
             bioLink = data.uri;
-            var artistBio = {
+            var artistBioStuff = {
                 data: bioData,
                 link: bioLink
             }
-            var artistBioString = JSON.stringify(artistBio);
+            var artistBioString = JSON.stringify(artistBioStuff);
             localStorage.setItem('artistBio', artistBioString);
-            renderArtistBio(artistBio);
+            renderArtistBio(artistBioStuff);
             console.log(data);
         });
     }
@@ -401,8 +402,9 @@ function discogsData(artist) {
 
 }
 
-function renderArtistBio(artistBio) {
-    artistBio.textContent = artistBio.data;
+function renderArtistBio(artistBioStuff) {
+    console.log(artistBioStuff);
+    artistBio.textContent = artistBioStuff.data;
     artistBioEl.appendChild(artistBio);
 }
 
