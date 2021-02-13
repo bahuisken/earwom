@@ -429,11 +429,11 @@ function constructSpotifyQuery(query, type) {
 function figureWhatTypeQuery() {
     if (document.querySelector("#lyrics").checked === true) {
         return "lyrics"
-    } else if (document.querySelector("#Song").checked === true) {
+    } else if (document.querySelector("#song").checked === true) {
         return "track"
-    } else if (document.querySelector("#Album").checked === true) {
+    } else if (document.querySelector("#album").checked === true) {
         return "album"
-    } else if (document.querySelector("#Artists").checked === true) {
+    } else if (document.querySelector("#artists").checked === true) {
         return "artist"
     } else {
         return false
