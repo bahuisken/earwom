@@ -36,7 +36,8 @@ var lyricsBy = document.createElement("h2");
 var lyricsLink = document.createElement("a");
 var lyricsBuy = document.createElement("a");
 var lyricsBtn = document.createElement("button");
-lyricsBtn.classList.add("is-custom");
+lyricsBtn.classList.add("clear-buttons");
+lyricsBtn.classList.add("button");
 lyricsBtn.textContent = "Clear Box";
 
 
@@ -46,7 +47,8 @@ var songAlbum = document.createElement("h2");
 var songImg = document.createElement("img");
 var songBuy = document.createElement("a");
 var songBtn = document.createElement("button");
-songBtn.classList.add("is-custom");
+songBtn.classList.add("clear-buttons");
+songBtn.classList.add("button");
 songBtn.textContent = "Clear Box";
 
 var albumTitle = document.createElement("h2");
@@ -54,7 +56,8 @@ var albumArtist = document.createElement("h2");
 var albumImg = document.createElement("img");
 var albumBuy = document.createElement("a");
 var albumBtn = document.createElement("button");
-albumBtn.classList.add("is-custom");
+albumBtn.classList.add("clear-buttons");
+albumBtn.classList.add("button");
 albumBtn.textContent = "Clear Box";
 
 
@@ -63,7 +66,8 @@ var artistImg = document.createElement("img");
 var artistBio = document.createElement("p");
 var artistLink = document.createElement("a");
 var artistBtn = document.createElement("button");
-artistBtn.classList.add("is-custom");
+artistBtn.classList.add("clear-buttons");
+artistBtn.classList.add("button");
 artistBtn.textContent = "Clear Box";
 
 var title = document.createElement("h2");
@@ -111,7 +115,7 @@ const authEndpoint = 'https://accounts.spotify.com/authorize';
 const clientId = '484101cfe3334822a8460d3399e625f0';
 const redirectUri = 'https://bahuisken.github.io/project-1/';
 
-document.getElementById("authBtn").addEventListener("click", function (event) {
+document.getElementById("auth-btn").addEventListener("click", function (event) {
     event.preventDefault();
     if (!_token) {
         window.location = `${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=token&show_dialog=true`;

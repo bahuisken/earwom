@@ -22,8 +22,8 @@
 
     <div class="modal is-active" id="modalOne">
       <div class="modal-background"></div>
-      <div class="modal-content">
-        <div class="box search-box">
+      <div class="modal-content" id="modal">
+        <div class="box search-box ">
           <form>
             <div class="field">
               <label class="label">What's got your ear?</label>
@@ -38,27 +38,25 @@
                   Lyrics
                 </label>
                 <label class="radio" id="song-label">
-                  <input type="radio" name="search-type" id="Song">
+                  <input type="radio" name="search-type" id="song">
                   Song
                 </label>
                 <label class="radio" id="album-label">
-                  <input type="radio" name="search-type" id="Album">
+                  <input type="radio" name="search-type" id="album">
                   Album
                 </label>
                 <label class="radio" id="artist-label">
-                  <input type="radio" name="search-type" id="Artists">
+                  <input type="radio" name="search-type" id="artists">
                   Artists
                 </label>
               </div>
             </div>
             <div id="spotify">
-              <p>Login with spotify to searh by song, album or artist.</p>
+              <p><b>--Authenticate with Spotify to search by song, album or artist.--</b></p>
             </div>
             <div class="control">
               <button class="button is-custom" id="submit-query-btn">DIG</button>
-            </div>
-            <div class="control">
-              <button class="button is-custom" id="authBtn">Authenticate</button>
+              <button class="button is-custom" id="auth-btn">Authenticate</button>
             </div>
           </form>
         </div>
