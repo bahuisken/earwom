@@ -77,6 +77,7 @@ var spotifyEl = document.getElementById("spotify");
 
 var bioData;
 var bioLink;
+var artistResult;
 //stole this -B
 // Get the hash of the url
 const hash = window.location.hash
@@ -93,7 +94,7 @@ window.location.hash = '';
 
 // Set token
 let _token = hash.access_token;
-//_token = "BQBKFcfTNbyu06yW20WGDCXg-VFmB3zngBN9rvVj7CFitsVpGYHp051GGhe4NfCbK_ZBpZOYckGHDrpbLeY";
+//_token = "BQCGtoq_JFCPfIwFdWOJrFdRZiBTyRdCb82WFkPzGHMDll4j0J0wmBrP4XOUhJjMGLeudCEj63JJlFcsMXE";
 
 if (_token) {
     songRadio.style.display = "inline";
@@ -387,7 +388,7 @@ function renderSong(songObject) {
 function renderDiscogsLyrics(discogsLyricObject) {
     lyricsBuy.setAttribute("href", discogsLyricObject.url);
     lyricsBuy.setAttribute("target", "_blank");
-    lyricsBuy.innerHTML = "<br>Browse on DISCOGS";
+    lyricsBuy.innerHTML = "<br>" + discogsLyricObject.linkText;
     lyricsBioEl.appendChild(lyricsBuy);
 
 }
@@ -395,24 +396,23 @@ function renderDiscogsLyrics(discogsLyricObject) {
 function renderDiscogsSong(discogsSongObject) {
     songBuy.setAttribute("href", discogsSongObject.url);
     songBuy.setAttribute("target", "_blank");
-    songBuy.textContent = "Browse on DISCOGS";
+    songBuy.textContent = discogsSongObject.linkText;
     songBioEl.appendChild(songBuy);
 }
 
 function renderDiscogsAlbum(discogsAlbumObject) {
     albumBuy.setAttribute("href", discogsAlbumObject.url);
     albumBuy.setAttribute("target", "_blank");
-    albumBuy.textContent = "Browse on DISCOGS";
+    albumBuy.textContent = discogsAlbumObject.linkText;
     albumBioEl.appendChild(albumBuy);
 }
 
 function renderDiscogsArtist(discogsArtistObject) {
-    artistBio.textContent = discogsArtistObject.bio + "...";
+    artistBio.textContent = discogsArtistObject.bio;
     artistLink.setAttribute("href", discogsArtistObject.url);
     artistLink.setAttribute("target", "_blank");
-    artistLink.textContent = " Read more on DISCOGS";
+    artistLink.innerHTML = discogsArtistObject.linkText;
     artistBioEl.appendChild(artistBio);
-    artistBio.appendChild(breaker);
     artistBio.appendChild(artistLink);
 }
 
@@ -442,21 +442,38 @@ function discogsData(results) {
         fetch("https://api.discogs.com/database/search?track=" + results + "&token=FFvTYocHFIohHeiKPxwTEgMcpiVjPZUwnsPfvEtE")
             .then(response => response.json())
             .then(data => {
-                var discogLyricResult = {
-                    url: "https://www.discogs.com/master/view/" + data.results[0].master_id
+                try {
+                    var discogLyricResult = {
+                        url: "https://www.discogs.com/master/view/" + data.results[0].master_id,
+                        linkText: "Browse on DISCOGS"
+                    }
+                } catch (error) {
+                    var errorResult = results.split("&artist=")
+                    var discogLyricResult = {
+                        url: "https://www.discogs.com/search/?q=" + errorResult[1],
+                        linkText: "Search on DISCOGS"
+                    }
                 }
                 var discogLyricResponseString = JSON.stringify(discogLyricResult);
                 localStorage.setItem('discogsLyrics', discogLyricResponseString);
                 renderDiscogsLyrics(discogLyricResult);
-
             });
 
     } else if (queryType === "track") {
         fetch("https://api.discogs.com/database/search?release_title=" + results + "&token=FFvTYocHFIohHeiKPxwTEgMcpiVjPZUwnsPfvEtE")
             .then(response => response.json())
             .then(data => {
-                var discogTrackResult = {
-                    url: "https://www.discogs.com/master/view/" + data.results[0].master_id
+                try {
+                    var discogTrackResult = {
+                        url: "https://www.discogs.com/master/view/" + data.results[0].master_id,
+                        linkText: "Browse on DISCOGS"
+                    }
+                } catch (error) {
+                    var errorResult = results.split("&artist=")
+                    var discogTrackResult = {
+                        url: "https://www.discogs.com/search/?q=" + errorResult[1],
+                        linkText: "Search on DISCOGS"
+                    }
                 }
                 var discogTrackResponseString = JSON.stringify(discogTrackResult);
                 localStorage.setItem('discogsSong', discogTrackResponseString);
@@ -467,8 +484,17 @@ function discogsData(results) {
         fetch("https://api.discogs.com/database/search?release_title=" + results + "&token=FFvTYocHFIohHeiKPxwTEgMcpiVjPZUwnsPfvEtE")
             .then(response => response.json())
             .then(data => {
-                var discogAlbumResult = {
-                    url: "https://www.discogs.com/master/view/" + data.results[0].master_id
+                try {
+                    var discogAlbumResult = {
+                        url: "https://www.discogs.com/master/view/" + data.results[0].master_id,
+                        linkText: "Browse on DISCOGS"
+                    }
+                } catch (error) {
+                    var errorResult = results.split("&artist=")
+                    var discogAlbumResult = {
+                        url: "https://www.discogs.com/search/?q=" + errorResult[1],
+                        linkText: "Search on DISCOGS"
+                    }
                 }
                 var discogAlbumResponseString = JSON.stringify(discogAlbumResult);
                 localStorage.setItem('discogsAlbum', discogAlbumResponseString);
@@ -479,27 +505,50 @@ function discogsData(results) {
         fetch("https://api.discogs.com/database/search?q=" + results + "&token=FFvTYocHFIohHeiKPxwTEgMcpiVjPZUwnsPfvEtE")
             .then(response => response.json())
             .then(data => {
-                var artistResult = data.results;
-                for (let index = 0; index < artistResult.length; index++) {
-                    const element = artistResult[index];
+                console.log("did I get here?")
+                console.log(results)
+                artistResult = results;
+                var foundArtist = false;
+                var dataResults = data.results;
+                for (let index = 0; index < dataResults.length; index++) {
+                    const element = dataResults[index];
                     if (element.type === "artist") {
                         var realResult = element;
+                        foundArtist = true;
                         break;
                     }
+                    //     else {
+                    //         var realResult = { id: 0 }
+                    //         break;
+                    //     }
+                }
+                if (!foundArtist) {
+                    var realResult = { id: 0 }
                 }
                 console.log(realResult);
                 return fetch(`https://api.discogs.com/artists/${realResult.id}`);
             })
             .then(response => response.json())
             .then(data => {
-                var discogArtistResult = {
-                    bio: data.profile.slice(0, 100),
-                    url: data.uri
+                console.log(artistResult)
+                if (data.profile) {
+                    var discogArtistResult = {
+                        bio: data.profile.slice(0, 100) + "…",
+                        url: data.uri,
+                        linkText: "<br>Read more on DISCOGS"
+                    }
+                } else {
+                    var discogArtistResult = {
+                        bio: "",
+                        url: "https://www.discogs.com/search/?q=" + artistResult,
+                        linkText: "Search on DISCOGS"
+                    }
                 }
                 var discogArtistResponseString = JSON.stringify(discogArtistResult);
                 localStorage.setItem('discogsArtist', discogArtistResponseString);
                 renderDiscogsArtist(discogArtistResult);
             });
+
     }
 
 
