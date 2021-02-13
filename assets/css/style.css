@@ -84,3 +84,13 @@ main {
 #auth-btn {
     float: right;
 }
+
+@media only screen and (max-width: 768px) {
+    .search-image {
+        height: auto;
+        max-width: 349px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
