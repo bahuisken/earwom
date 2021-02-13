@@ -21,7 +21,7 @@ main{
     background-color:  #e6e600;
 }
 
-.button.is-custom {
+.is-custom {
     background-color:  #4d2600;
     border-color: transparent;
     color: #fff;
@@ -36,17 +36,26 @@ main{
     border: 2px solid black;
 }
 
-#active {
+#active, #clear {
     background-color: #e6e600;
     color:#4d2600;
     width: 20%;
     margin-right: 40%;
     margin-left: 40%;
-    margin-top: 20px;
-    margin-bottom: 20px;
-
 }
+
+#active {
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+#clear {
+    margin-bottom: 20px;
+}
+
+
 
 #song-label, #album-label, #artist-label {
     display: none;
 }
+
