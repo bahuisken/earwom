@@ -8,6 +8,8 @@
 // var songBox = document.getElementById("songsBox")
 // var albumBox = document.getElementById("albumsBox")
 // var artistBox = document.getElementById("artistsBox")
+var clearBtn = document.getElementById("clear");
+
 var lyricsBoxEl = document.getElementById("lyrics-box");
 var lyricsImgEl = document.getElementById("lyrics-img");
 var lyricsBioEl = document.getElementById("lyrics-bio");
@@ -520,8 +522,7 @@ var active = $("#active");
 active.click(function openModal() {
     modal.addClass("is-active");
 })
-
-lyricsBtn.addEventListener("click", function (event) {
+function clearLyrics(event) {
     localStorage.removeItem("lyrics");
     localStorage.removeItem("discogsLyrics");
     lyricsBtn.remove();
@@ -530,4 +531,59 @@ lyricsBtn.addEventListener("click", function (event) {
     lyricsTitle.remove();
     lyricsLink.remove();
     lyricsBuy.remove();
+}
+
+lyricsBtn.addEventListener("click", function (event) {
+    clearLyrics();
 });
+
+function clearSong(event) {
+    localStorage.removeItem("song");
+    localStorage.removeItem("discogsSong");
+    songImg.remove();
+    songArtist.remove();
+    songBuy.remove();
+    songAlbum.remove();
+    songBtn.remove();
+    songTitle.remove();
+}
+
+songBtn.addEventListener("click", function (event) {
+    clearSong();
+});
+
+function clearAlbum(event) {
+    localStorage.removeItem("album");
+    localStorage.removeItem("discogsAlbum");
+    albumImg.remove();
+    albumTitle.remove();
+    albumArtist.remove();
+    albumBtn.remove();
+    albumBuy.remove();
+}
+
+albumBtn.addEventListener("click", function (event) {
+    clearAlbum();
+})
+
+function clearArtist(event) {
+    localStorage.removeItem("artist");
+    localStorage.removeItem("discogsArtist");
+    artistImg.remove();
+    artistTitle.remove();
+    artistBtn.remove();
+    artistBio.remove();
+    breaker.remove();
+    artistLink.remove();
+}
+
+artistBtn.addEventListener("click", function (event) {
+    clearArtist();
+})
+
+clearBtn.addEventListener("click", function (event) {
+    clearLyrics();
+    clearSong();
+    clearAlbum();
+    clearArtist();
+})
