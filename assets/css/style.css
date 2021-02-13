@@ -4,20 +4,26 @@ html, body {
     background-color: #4d2600;
   }
 
-  h1 {
+h1 {
     text-shadow: 2px 2px #4d2600;
-  }
-main{
+}
+
+main {
     height: 100%;
 }
 
-  #logo-holder{
+#logo-holder {
     background: url('../images/earworm_logo.png') 0 0 repeat-x;
     width: 150px;
     height: 85px;
     margin:auto;
 }
-.search-box{
+
+#modal {
+    max-width: 90%;
+}
+
+.search-box {
     background-color:  #e6e600;
 }
 
@@ -25,23 +31,33 @@ main{
     background-color:  #4d2600;
     border-color: transparent;
     color: #fff;
+    margin-bottom: 10px;
 }
 
-.title{
+.is-custom:hover, .clear-buttons:hover {
+    color:#e6e600;
+}
+
+.title {
     color:  #e6e600;
     text-align: center;
 }
 
-.column {
-    border: 2px solid black;
+.clear-buttons {
+    background-color:  #4d2600;
+    border-color: transparent;
+    color: #fff;
+    min-width: 100px;
 }
 
 #active, #clear {
     background-color: #e6e600;
-    color:#4d2600;
-    width: 20%;
-    margin-right: 40%;
-    margin-left: 40%;
+    color: #4d2600;
+    text-align: center;
+    margin: auto;
+    display: flex;
+    display: grid;
+    min-width: 150px;
 }
 
 #active {
@@ -51,11 +67,20 @@ main{
 
 #clear {
     margin-bottom: 20px;
+
 }
-
-
 
 #song-label, #album-label, #artist-label {
     display: none;
 }
 
+#spotify {
+    margin-bottom: 10px;
+    text-align: center;
+    color:#4d2600;
+    ;
+}
+
+#auth-btn {
+    float: right;
+}
