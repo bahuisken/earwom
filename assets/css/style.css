@@ -94,3 +94,13 @@ main {
         margin-right: auto;
     }
 }
+
+@media only screen and (max-width: 474px) {
+    .search-image {
+        height: auto;
+        max-width: 200px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
