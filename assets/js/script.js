@@ -40,6 +40,10 @@ var lyricsBtn = document.createElement("button");
 lyricsBtn.classList.add("clear-buttons");
 lyricsBtn.classList.add("button");
 lyricsBtn.textContent = "Clear Box";
+var nextLyricsBtn = document.createElement("button");
+nextLyricsBtn.textContent = "Next";
+nextLyricsBtn.classList.add("next-buttons");
+nextLyricsBtn.classList.add("button");
 
 
 var songTitle = document.createElement("h2");
@@ -52,6 +56,10 @@ var songBtn = document.createElement("button");
 songBtn.classList.add("clear-buttons");
 songBtn.classList.add("button");
 songBtn.textContent = "Clear Box";
+var nextSongBtn = document.createElement("button");
+nextSongBtn.textContent = "Next";
+nextSongBtn.classList.add("next-buttons");
+nextSongBtn.classList.add("button");
 
 var albumTitle = document.createElement("h2");
 var albumArtist = document.createElement("h2");
@@ -62,6 +70,10 @@ var albumBtn = document.createElement("button");
 albumBtn.classList.add("clear-buttons");
 albumBtn.classList.add("button");
 albumBtn.textContent = "Clear Box";
+var nextAlbumBtn = document.createElement("button");
+nextAlbumBtn.textContent = "Next";
+nextAlbumBtn.classList.add("next-buttons");
+nextAlbumBtn.classList.add("button");
 
 
 var artistTitle = document.createElement("h2");
@@ -73,6 +85,10 @@ var artistBtn = document.createElement("button");
 artistBtn.classList.add("clear-buttons");
 artistBtn.classList.add("button");
 artistBtn.textContent = "Clear Box";
+var nextArtistBtn = document.createElement("button");
+nextArtistBtn.textContent = "Next";
+nextArtistBtn.classList.add("next-buttons");
+nextArtistBtn.classList.add("button");
 
 var title = document.createElement("h2");
 var img = document.createElement("img");
@@ -102,7 +118,7 @@ window.location.hash = '';
 
 // Set token
 let _token = hash.access_token;
-//_token = "BQCGtoq_JFCPfIwFdWOJrFdRZiBTyRdCb82WFkPzGHMDll4j0J0wmBrP4XOUhJjMGLeudCEj63JJlFcsMXE";
+_token = "BQB0RmnnlPcw5b3txcG8d9qWrBU70uX23qkXhJ6N2QEIqdCvnZwpmCn2Z8fDDSFRjRbPwEn1RRFHp097JLk";
 
 if (_token) {
     songRadio.style.display = "inline";
@@ -130,6 +146,7 @@ document.getElementById("auth-btn").addEventListener("click", function (event) {
 })
 
 //console.log(_token)
+
 
 var recentLyrics = JSON.parse(localStorage.getItem('lyrics'));
 if (recentLyrics) {
@@ -167,8 +184,11 @@ if (recentDiscogsArtist) {
 }
 
 
+
 document.getElementById("submit-query-btn").addEventListener("click", function (event) {
 
+
+    console.log(i);
     event.preventDefault();
     modal.removeClass("is-active");
     // var searchBarValue = document.querySelector("#query").value.split(" ").join("%20");
@@ -190,6 +210,8 @@ document.getElementById("submit-query-btn").addEventListener("click", function (
 
 
     if (queryType === "lyrics") {
+        var i = 0;
+        console.log(i);
         console.log(_token);
         var lyricObject = JSON.parse(localStorage.getItem('lyrics'));
         console.log(lyricObject);
@@ -202,8 +224,9 @@ document.getElementById("submit-query-btn").addEventListener("click", function (
         )
             .then(response => response.json())
             .then(data => {
-                // console.log(data.response.hits[0].result);
-                var best = data.response.hits[0].result
+                i = 0;
+                console.log(data.response.hits.length);
+                var best = data.response.hits[i].result
                 console.log(best)
                 bestLyricResponse = {
                     songTitle: best.title,
@@ -219,9 +242,55 @@ document.getElementById("submit-query-btn").addEventListener("click", function (
                 localStorage.setItem('lyrics', lyricResponseString);
                 renderLyrics(bestLyricResponse);
                 discogsData(bestLyricResponse.songTitle + '&artist=' + bestLyricResponse.primaryArist)
+                lyricsBoxEl.appendChild(nextLyricsBtn);
+                nextLyricsBtn.addEventListener("click", function (event) {
+                    if (i < data.response.hits.length - 2) {
+                        i = i + 1;
+                        var best = data.response.hits[i].result
+                        bestLyricResponse = {
+                            songTitle: best.title,
+                            primaryArist: best.primary_artist.name,
+                            artistHeaderImage: best.primary_artist.header_image_url,
+                            url: best.url,
+                            songHeaderImage: best.header_image_url,
+                            lyricsLink: best.url,
+                            pageViews: best.stats.pageviews
+                        }
+                        console.log(bestLyricResponse);
+                        var lyricResponseString = JSON.stringify(bestLyricResponse);
+                        localStorage.setItem('lyrics', lyricResponseString);
+                        renderLyrics(bestLyricResponse);
+                        discogsData(bestLyricResponse.songTitle + '&artist=' + bestLyricResponse.primaryArist)
+                        lyricsBoxEl.appendChild(nextLyricsBtn);
+                        console.log(i);
+                    } else {
+                        i = i + 1;
+                        nextLyricsBtn.remove();
+                        var best = data.response.hits[i].result
+                        bestLyricResponse = {
+                            songTitle: best.title,
+                            primaryArist: best.primary_artist.name,
+                            artistHeaderImage: best.primary_artist.header_image_url,
+                            url: best.url,
+                            songHeaderImage: best.header_image_url,
+                            lyricsLink: best.url,
+                            pageViews: best.stats.pageviews
+                        }
+                        console.log(bestLyricResponse);
+                        var lyricResponseString = JSON.stringify(bestLyricResponse);
+                        localStorage.setItem('lyrics', lyricResponseString);
+                        renderLyrics(bestLyricResponse);
+                        discogsData(bestLyricResponse.songTitle + '&artist=' + bestLyricResponse.primaryArist)
+                        i = 0;
+                    }
+
+
+                })
             });
 
     } else {
+        var j = 0;
+        var k = 0;
         fetch(constructSpotifyQuery(searchBarValue, queryType), {
             method: "GET",
             headers: {
@@ -235,8 +304,9 @@ document.getElementById("submit-query-btn").addEventListener("click", function (
                 console.log(data)
                 var best;
                 if (queryType === "track") {
+                    j = 0;
                     // songBox.innerHTML = ""
-                    best = data.tracks.items[0]
+                    best = data.tracks.items[j]
                     bestSongResponse = {
                         songName: best.name,
                         albumName: best.album.name,
@@ -252,9 +322,56 @@ document.getElementById("submit-query-btn").addEventListener("click", function (
                     var songResponseString = JSON.stringify(bestSongResponse);
                     localStorage.setItem('song', songResponseString);
                     renderSong(bestSongResponse);
-                    discogsData(bestSongResponse.albumName + '&artist=' + bestSongResponse.artists.artistNames[0]);
+                    discogsData(bestSongResponse.albumName + '&artist=' + bestSongResponse.artists.artistNames[j]);
+                    songBoxEl.appendChild(nextSongBtn);
+                    nextSongBtn.addEventListener("click", function (event) {
+                        if (j < data.tracks.items.length - 2) {
+                            j = j + 1;
+                            best = data.tracks.items[j]
+                            bestSongResponse = {
+                                songName: best.name,
+                                albumName: best.album.name,
+                                releaseDate: best.album.release_date,
+                                explicit: best.explicit,
+                                duration: best.duration_ms,
+                                id: best.id,
+                                artists: getAllArtistNamesFromSpotifyAPI(best.artists),
+                                albumImages: best.album.images
+                            }
+                            console.log(bestSongResponse);
+                            var songResponseString = JSON.stringify(bestSongResponse);
+                            localStorage.setItem('song', songResponseString);
+                            renderSong(bestSongResponse);
+                            discogsData(bestSongResponse.albumName + '&artist=' + bestSongResponse.artists.artistNames[0]);
+                            console.log(bestSongResponse.artists.artistNames[0]);
+                            songBoxEl.appendChild(nextSongBtn);
+                            console.log(j);
+                        } else {
+                            j = j + 1;
+                            nextSongBtn.remove();
+                            best = data.tracks.items[j]
+                            bestSongResponse = {
+                                songName: best.name,
+                                albumName: best.album.name,
+                                releaseDate: best.album.release_date,
+                                explicit: best.explicit,
+                                duration: best.duration_ms,
+                                id: best.id,
+                                artists: getAllArtistNamesFromSpotifyAPI(best.artists),
+                                albumImages: best.album.images
+                            }
+                            console.log(bestSongResponse);
+                            var songResponseString = JSON.stringify(bestSongResponse);
+                            localStorage.setItem('song', songResponseString);
+                            renderSong(bestSongResponse);
+                            discogsData(bestSongResponse.albumName + '&artist=' + bestSongResponse.artists.artistNames[j]);
+                            j = 0;
+                        }
+
+                    })
                 } else if (queryType === "album") {
-                    best = data.albums.items[0]
+                    k = 0;
+                    best = data.albums.items[k]
                     bestAlbumResponse = {
                         albumName: best.name,
                         albumType: best.album_type,
@@ -267,7 +384,49 @@ document.getElementById("submit-query-btn").addEventListener("click", function (
                     var albumResponseString = JSON.stringify(bestAlbumResponse);
                     localStorage.setItem('album', albumResponseString);
                     renderAlbums(bestAlbumResponse);
-                    discogsData(bestAlbumResponse.albumName + '&artist=' + bestAlbumResponse.artists.artistNames[0]);
+                    discogsData(bestAlbumResponse.albumName + '&artist=' + bestAlbumResponse.artists.artistNames[k]);
+                    albumBoxEl.appendChild(nextAlbumBtn);
+                    nextAlbumBtn.addEventListener("click", function (event) {
+                        if (k < data.albums.items.length - 2) {
+                            k = k + 1;
+                            best = data.albums.items[k]
+                            bestAlbumResponse = {
+                                albumName: best.name,
+                                albumType: best.album_type,
+                                releaseDate: best.release_date,
+                                totalTracks: best.total_tracks,
+                                id: best.id,
+                                artists: getAllArtistNamesFromSpotifyAPI(best.artists),
+                                images: best.images
+                            }
+                            var albumResponseString = JSON.stringify(bestAlbumResponse);
+                            localStorage.setItem('album', albumResponseString);
+                            renderAlbums(bestAlbumResponse);
+                            discogsData(bestAlbumResponse.albumName + '&artist=' + bestAlbumResponse.artists.artistNames[0]);
+                            albumBoxEl.appendChild(nextAlbumBtn);
+                            console.log(k);
+                        } else {
+                            k = k + 1;
+                            nextAlbumBtn.remove();
+                            best = data.albums.items[k]
+                            bestAlbumResponse = {
+                                albumName: best.name,
+                                albumType: best.album_type,
+                                releaseDate: best.release_date,
+                                totalTracks: best.total_tracks,
+                                id: best.id,
+                                artists: getAllArtistNamesFromSpotifyAPI(best.artists),
+                                images: best.images
+                            }
+                            var albumResponseString = JSON.stringify(bestAlbumResponse);
+                            localStorage.setItem('album', albumResponseString);
+                            renderAlbums(bestAlbumResponse);
+                            discogsData(bestAlbumResponse.albumName + '&artist=' + bestAlbumResponse.artists.artistNames[0]);
+                            console.log(k);
+                            k = 0;
+                        }
+
+                    })
                 } else if (queryType === "artist") {
                     best = data.artists.items[0]
                     bestArtistResponse = {
@@ -588,6 +747,7 @@ function clearLyrics(event) {
     lyricsTitle.remove();
     lyricsLink.remove();
     lyricsBuy.remove();
+    nextLyricsBtn.remove();
 }
 
 lyricsBtn.addEventListener("click", function (event) {
@@ -603,6 +763,7 @@ function clearSong(event) {
     songAlbum.remove();
     songBtn.remove();
     songTitle.remove();
+    nextSongBtn.remove();
 }
 
 songBtn.addEventListener("click", function (event) {
@@ -617,6 +778,7 @@ function clearAlbum(event) {
     albumArtist.remove();
     albumBtn.remove();
     albumBuy.remove();
+    nextAlbumBtn.remove();
 }
 
 albumBtn.addEventListener("click", function (event) {

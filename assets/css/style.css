@@ -34,7 +34,7 @@ main {
     margin-bottom: 10px;
 }
 
-.is-custom:hover, .clear-buttons:hover {
+.is-custom:hover, .clear-buttons:hover, .next-buttons:hover {
     color:#e6e600;
 }
 
@@ -43,11 +43,15 @@ main {
     text-align: center;
 }
 
-.clear-buttons {
+.clear-buttons, .next-buttons {
     background-color:  #4d2600;
     border-color: transparent;
     color: #fff;
     min-width: 100px;
+}
+
+.next-buttons {
+    margin-left: 5px;
 }
 
 #active, #clear {
