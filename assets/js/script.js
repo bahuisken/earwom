@@ -36,6 +36,7 @@ var lyricsBy = document.createElement("h2");
 var lyricsLink = document.createElement("a");
 var lyricsBuy = document.createElement("a");
 var lyricsBtn = document.createElement("button");
+var lyricsSpotifyLink = document.createElement("a")
 lyricsBtn.classList.add("clear-buttons");
 lyricsBtn.classList.add("button");
 lyricsBtn.textContent = "Clear Box";
@@ -47,6 +48,7 @@ var songAlbum = document.createElement("h2");
 var songImg = document.createElement("img");
 var songBuy = document.createElement("a");
 var songBtn = document.createElement("button");
+var songSpotifyLink = document.createElement("a")
 songBtn.classList.add("clear-buttons");
 songBtn.classList.add("button");
 songBtn.textContent = "Clear Box";
@@ -56,6 +58,8 @@ var albumArtist = document.createElement("h2");
 var albumImg = document.createElement("img");
 var albumBuy = document.createElement("a");
 var albumBtn = document.createElement("button");
+var albumSpotifyLink = document.createElement("a")
+
 albumBtn.classList.add("clear-buttons");
 albumBtn.classList.add("button");
 albumBtn.textContent = "Clear Box";
@@ -66,6 +70,8 @@ var artistImg = document.createElement("img");
 var artistBio = document.createElement("p");
 var artistLink = document.createElement("a");
 var artistBtn = document.createElement("button");
+var artistSpotifyLink = document.createElement("a")
+
 artistBtn.classList.add("clear-buttons");
 artistBtn.classList.add("button");
 artistBtn.textContent = "Clear Box";
@@ -98,7 +104,7 @@ window.location.hash = '';
 
 // Set token
 let _token = hash.access_token;
-//_token = "BQCGtoq_JFCPfIwFdWOJrFdRZiBTyRdCb82WFkPzGHMDll4j0J0wmBrP4XOUhJjMGLeudCEj63JJlFcsMXE";
+_token = "BQA2EfmDKhBPmoh6yWnBFHmCn-zD40MIDgRRmOX8gEuCfXohrss_dBSejNlpAIGaD2yHNga6o_aL44jUnzE";
 
 if (_token) {
     songRadio.style.display = "inline";
@@ -241,7 +247,8 @@ document.getElementById("submit-query-btn").addEventListener("click", function (
                         duration: best.duration_ms,
                         id: best.id,
                         artists: getAllArtistNamesFromSpotifyAPI(best.artists),
-                        albumImages: best.album.images
+                        albumImages: best.album.images,
+                        openSpotifyLink: "https://open.spotify.com/track/" + best.id
 
                     }
                     console.log(bestSongResponse);
@@ -258,7 +265,8 @@ document.getElementById("submit-query-btn").addEventListener("click", function (
                         totalTracks: best.total_tracks,
                         id: best.id,
                         artists: getAllArtistNamesFromSpotifyAPI(best.artists),
-                        images: best.images
+                        images: best.images,
+                        openSpotifyLink: "https://open.spotify.com/album/" + best.id
                     }
                     var albumResponseString = JSON.stringify(bestAlbumResponse);
                     localStorage.setItem('album', albumResponseString);
@@ -271,7 +279,8 @@ document.getElementById("submit-query-btn").addEventListener("click", function (
                         artistGenres: best.genres,
                         artistImages: best.images,
                         artistType: best.type,
-                        artistFollowers: best.followers.total
+                        artistFollowers: best.followers.total,
+                        openSpotifyLink: "https://open.spotify.com/artist/" + best.id
                     }
                     var artistResponseString = JSON.stringify(bestArtistResponse);
                     localStorage.setItem('artist', artistResponseString);
@@ -344,6 +353,16 @@ function renderAlbums(albumObject) {
     albumBioEl.appendChild(albumArtist);
     albumBoxEl.appendChild(albumBtn);
 
+    // lyricsBuy.setAttribute("href", discogsLyricObject.url);
+    // lyricsBuy.setAttribute("target", "_blank");
+    // lyricsBuy.innerHTML = "<br>" + discogsLyricObject.linkText;
+
+    albumSpotifyLink.setAttribute("href", albumObject.openSpotifyLink)
+    albumSpotifyLink.setAttribute("target", "_blank")
+    albumSpotifyLink.innerHTML = "<br>" + "Listen on Spotify!" + "<br>"
+    albumBioEl.appendChild(albumSpotifyLink)
+
+
 }
 
 function renderArtist(artistObject) {
@@ -359,6 +378,11 @@ function renderArtist(artistObject) {
     artistTitle.setAttribute("class", "has-text-weight-bold")
     artistBioEl.appendChild(artistTitle)
     artistBoxEl.appendChild(artistBtn);
+
+    artistSpotifyLink.setAttribute("href", artistObject.openSpotifyLink)
+    artistSpotifyLink.setAttribute("target", "_blank")
+    artistSpotifyLink.innerHTML = "<br>" + "Listen on Spotify!"
+    artistBioEl.appendChild(artistSpotifyLink)
 
 }
 
@@ -387,6 +411,11 @@ function renderSong(songObject) {
     songAlbum.textContent = "From: " + songObject.albumName;
     songBioEl.appendChild(songAlbum);
     songBoxEl.appendChild(songBtn);
+
+    songSpotifyLink.setAttribute("href", songObject.openSpotifyLink)
+    songSpotifyLink.setAttribute("target", "_blank")
+    songSpotifyLink.innerHTML = "<br>" + "Listen on Spotify!" + "<br>"
+    songBioEl.appendChild(songSpotifyLink)
 }
 
 function renderDiscogsLyrics(discogsLyricObject) {
@@ -584,6 +613,7 @@ function clearLyrics(event) {
     lyricsTitle.remove();
     lyricsLink.remove();
     lyricsBuy.remove();
+
 }
 
 lyricsBtn.addEventListener("click", function (event) {
@@ -599,6 +629,7 @@ function clearSong(event) {
     songAlbum.remove();
     songBtn.remove();
     songTitle.remove();
+    songSpotifyLink.remove();
 }
 
 songBtn.addEventListener("click", function (event) {
@@ -613,6 +644,7 @@ function clearAlbum(event) {
     albumArtist.remove();
     albumBtn.remove();
     albumBuy.remove();
+    albumSpotifyLink.remove();
 }
 
 albumBtn.addEventListener("click", function (event) {
@@ -628,6 +660,7 @@ function clearArtist(event) {
     artistBio.remove();
     breaker.remove();
     artistLink.remove();
+    artistSpotifyLink.remove();
 }
 
 artistBtn.addEventListener("click", function (event) {
