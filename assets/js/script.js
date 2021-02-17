@@ -104,6 +104,7 @@ var albumRadio = document.getElementById("album-label");
 var artistRadio = document.getElementById("artist-label");
 
 var spotifyEl = document.getElementById("spotify");
+var authBtn = document.getElementById("auth-btn");
 
 var bioData;
 var bioLink;
@@ -125,13 +126,17 @@ window.location.hash = '';
 // Set token
 let _token = hash.access_token;
 
-// _token = "BQB0RmnnlPcw5b3txcG8d9qWrBU70uX23qkXhJ6N2QEIqdCvnZwpmCn2Z8fDDSFRjRbPwEn1RRFHp097JLk";
+ //_token = "BQBeMMMMo8W4_-qAvdHhF3m5U2iNaxqIOEEI9GIIa6IxcAIaU1gnPy-ceEgNyQjp0qTq_ydjLe0iajzyC1I";
 
 if (_token) {
     songRadio.style.display = "inline";
     albumRadio.style.display = "inline";
     artistRadio.style.display = "inline";
-    spotifyEl.remove();
+    spotifyEl.style.display = "none";
+    authBtn.style.display = "none";
+} else {
+    spotifyEl.style.display = "inline";
+    authBtn.style.display = "inline";
 }
 //SET YOUR TEMP TOKEN HERE FOR LOCAL TESTING!!!
 //CHECK SLACK TO GET SUCH A TOKEN
@@ -142,6 +147,7 @@ const authEndpoint = 'https://accounts.spotify.com/authorize';
 // Replace with your app's client ID, redirect URI and desired scopes
 const clientId = '484101cfe3334822a8460d3399e625f0';
 const redirectUri = 'https://bahuisken.github.io/project-1/';
+
 
 document.getElementById("auth-btn").addEventListener("click", function (event) {
     event.preventDefault();
