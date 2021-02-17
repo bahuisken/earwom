@@ -330,6 +330,10 @@ function renderLyrics(lyricObject) {
     lyricsBioEl.appendChild(lyricsBy);
     lyricsBioEl.appendChild(lyricsLink);
     lyricsBoxEl.appendChild(lyricsBtn);
+
+
+
+
 }
 
 
