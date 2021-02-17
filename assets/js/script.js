@@ -126,7 +126,7 @@ window.location.hash = '';
 // Set token
 let _token = hash.access_token;
 
- //_token = "BQBeMMMMo8W4_-qAvdHhF3m5U2iNaxqIOEEI9GIIa6IxcAIaU1gnPy-ceEgNyQjp0qTq_ydjLe0iajzyC1I";
+//_token = "BQBeMMMMo8W4_-qAvdHhF3m5U2iNaxqIOEEI9GIIa6IxcAIaU1gnPy-ceEgNyQjp0qTq_ydjLe0iajzyC1I";
 
 if (_token) {
     songRadio.style.display = "inline";
@@ -146,7 +146,7 @@ const authEndpoint = 'https://accounts.spotify.com/authorize';
 
 // Replace with your app's client ID, redirect URI and desired scopes
 const clientId = '484101cfe3334822a8460d3399e625f0';
-const redirectUri = 'https://bahuisken.github.io/project-1/';
+const redirectUri = 'https://bahuisken.github.io/earworm/';
 
 
 document.getElementById("auth-btn").addEventListener("click", function (event) {
