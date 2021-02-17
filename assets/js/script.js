@@ -146,7 +146,7 @@ const authEndpoint = 'https://accounts.spotify.com/authorize';
 
 // Replace with your app's client ID, redirect URI and desired scopes
 const clientId = '484101cfe3334822a8460d3399e625f0';
-const redirectUri = 'https://bahuisken.github.io/earworm/';
+const redirectUri = 'https://bahuisken.github.io/project-1/';
 
 
 document.getElementById("auth-btn").addEventListener("click", function (event) {
