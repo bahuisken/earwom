@@ -33,10 +33,16 @@ You have that song stuck in your head, and you can only remember a certain detai
     * Recommendations based on previous searches
     * What’s trending based on all Earworm searches
 
-# Authors
-    * @BrandonMinard
-    * @fitzpatb
-    * @bahuisken
+# Contributors
+<a href="https://github.com/bahuisken/project-1/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=bahuisken/project-1" />
+</a>
+
+* [BrandonMinard](https://github.com/BrandonMinard)
+
+* [fitzpatb](https://github.com/fitzpatb)
+
+* [bahuisken](https://github.com/bahuisken)
 
 ## Deployed Application Link:
 
