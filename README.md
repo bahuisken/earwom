@@ -46,7 +46,7 @@ You have that song stuck in your head, and you can only remember a certain detai
 
 ## Deployed Application Link:
 
-https://bahuisken.github.io/project-1/
+https://bahuisken.github.io/earwom/
 
 ## Screenshots
 
